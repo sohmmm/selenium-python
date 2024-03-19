@@ -3,9 +3,10 @@ from shared.common_base import CommonBase
 from pages.login_page import LoginPage
 from pages.logout_page import LogoutPage
 from utils.utils import read_excel
+import os
 
 
-class TestLogin:
+class TestLogin(CommonBase):
     @pytest.fixture(autouse=True, scope='session')
     def before_launch(self):
         cb = CommonBase()
@@ -16,9 +17,8 @@ class TestLogin:
 
     @staticmethod
     def get_login_data():
-        # ToDo make it relative
-        data = read_excel('C:/Users/soham_pagi/PycharmProjects/automation-testing/test_data/login_credentials.xlsx',
-                          'Login Credentials')
+        # ToDo make path relative
+        data = read_excel('C:/Users/soham_pagi/PycharmProjects/automation-testing/test_data/login_credentials.xlsx', 'Login Credentials')
 
         for index, row in data.iterrows():
             yield row['username'], row['password']
@@ -31,12 +31,9 @@ class TestLogin:
         username, password = login_data  # username, password
         login_page.login(username, password)
 
-        obtained_url = CommonBase.driver.current_url
+        obtained_url = self.driver.current_url
         expected_url = 'https://www.saucedemo.com/inventory.html'
 
         assert obtained_url == expected_url
 
         logout_page.logout()
-
-
-# TestLogin.get_login_data()

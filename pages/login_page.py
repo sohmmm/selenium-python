@@ -1,28 +1,21 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-from shared.common_base import CommonBase
+from pages.base_page import BasePage
 
 
-class LoginPage(CommonBase):
+class LoginPage(BasePage):
     def __init__(self):
         self.username_field = (By.ID, 'user-name')
         self.password_field = (By.ID, 'password')
         self.login_btn = (By.ID, 'login-button')
 
     def enter_username(self, username):
-        element = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(self.username_field))
-        element.clear()
-        element.send_keys(username)
+        self.enter_element(self.username_field, username)
 
     def enter_password(self, password):
-        element = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(self.password_field))
-        element.clear()
-        element.send_keys(password)
+        self.enter_element(self.password_field, password)
 
     def click_login(self):
-        element = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(self.login_btn))
-        element.click()
+        self.click_element(self.login_btn)
 
     def login(self, username, password):
         self.enter_username(username)
