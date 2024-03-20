@@ -1,21 +1,19 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-from shared.common_base import CommonBase
+from pages.base_page import BasePage
 
 
-class LogoutPage(CommonBase):
+class LogoutPage(BasePage):
     def __init__(self):
         self.menu_btn = (By.ID, 'react-burger-menu-btn')
         self.logout_link = (By.ID, 'logout_sidebar_link')
 
     def click_menu_btn(self):
-        element = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(self.menu_btn))
-        element.click()
+        self.click_element(self.menu_btn)
 
     def click_logout(self):
-        element = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(self.logout_link))
-        element.click()
+        self.click_element(self.logout_link)
 
     def logout(self):
         self.click_menu_btn()
