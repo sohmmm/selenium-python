@@ -11,7 +11,7 @@ class CommonBase:
             options.add_experimental_option('detach', True)
             cls.driver = webdriver.Chrome(options)
             cls.driver.maximize_window()
-            cls.driver.implicitly_wait(5)
+            cls.driver.implicitly_wait(10)
 
     @classmethod
     def launch_browser(cls, url):
